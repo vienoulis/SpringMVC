@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping()
 public class HelloController {
 
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 		List<String> messages = new ArrayList<>();
 		messages.add("Hello!");
