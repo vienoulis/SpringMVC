@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,18 +18,13 @@ import java.util.Properties;
 @Controller
 @RequestMapping("/cars")
 public class CarController {
+    @Autowired
+    private Service service;
 
     @RequestMapping(name = "/cars", method = RequestMethod.GET)
     public String printCars(ModelMap map, HttpServletRequest request) throws IOException {
-        Properties properties = new Properties();
-        if (request.getParameter("locale") != null &&
-                request.getParameter("locale").equals("ru")) {
-            properties.load(new FileReader(getClass().getClassLoader().getResource("ru.properties").getFile()));
-        } else {
-            properties.load(new FileReader(getClass().getClassLoader().getResource("en.properties").getFile()));
-        }
-        map.addAttribute("car", properties.getProperty("cars"));
-        List<Car> cars = Service.getMyListOfCar();
+        map.addAttribute("car", service.getTitle(request.getParameter("locale")));
+        List<Car> cars = service.getMyListOfCar();
         map.addAttribute("carsList", cars);
         return "cars";
     }
