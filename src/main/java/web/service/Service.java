@@ -19,15 +19,4 @@ public class Service {
         return cars;
     }
 
-
-    public String getTitle(String locale) throws IOException {
-        Properties properties = new Properties();
-        if (locale != null &&
-                locale.equals("ru")) {
-            properties.load(new FileReader(getClass().getClassLoader().getResource("ru.properties").getFile()));
-        } else {
-            properties.load(new FileReader(getClass().getClassLoader().getResource("en.properties").getFile()));
-        }
-        return properties.getProperty("cars");
-    }
 }
